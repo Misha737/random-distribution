@@ -3,6 +3,7 @@ import numpy as np
 class Distribution:
     def __init__(self, values: list[int], quantities: list[int] = None):
         self.values = np.array(values)
+        self.is_probably = False
 
         if quantities is not None and len(quantities) != len(values):
             raise Exception('The size of the vectors is not equal')
@@ -15,8 +16,7 @@ class Distribution:
             self.sum = np.sum(self.quantities)
             if self.sum == 1:
                 self.is_probably = True
-            else:
-                self.is_probably = False
+
         self.probably = self.quantities / self.sum
 
     def expected_value(self) -> float:

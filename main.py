@@ -21,18 +21,23 @@ def chart(distribution: Distribution):
     ax.set_ylabel('Probability')
     ax.set_xlabel('Value')
 
-    ax.axvline(x=distribution.expected_value(), color='green', linestyle='-', linewidth=2, label='Expected Value')
+    line = ax.axvline(x=distribution.expected_value(), color='green', linestyle='-', linewidth=2, label='Expected Value')
     ax.legend(title=f'Variance: {round(distribution.variance(), 2)}')
+    if distribution.is_probably:
+        ax.text(0.5, 1.02, 'Entered as a probability')
 
     mplcursors.cursor(bars, hover=True).connect(
-    "add", lambda sel: sel.annotation.set_text(f"Значення: {sel.target[1]}")  # Виводимо тільки значення y
-)
+    "add", lambda sel: sel.annotation.set_text(f"y: {sel.target[1]}")  # Виводимо тільки значення y
+    )
+    mplcursors.cursor(line, hover=True).connect(
+        "add", lambda sel: sel.annotation.set_text(f"x: {sel.target[0]}")  # Виводимо тільки значення y
+    )
     mpl.show()
 
 def main():
     parser = argparse.ArgumentParser('Random distributions')
     parser.add_argument('values', type=int, nargs='+', help='List of values')
-    parser.add_argument('--quantities', '-n', type=float, nargs='+', help='List of quantities')
+    parser.add_argument('--quantities', '-q', type=float, nargs='+', help='List of quantities')
     args = parser.parse_args()
 
     distribution = Distribution(args.values, args.quantities)
