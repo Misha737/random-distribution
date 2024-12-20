@@ -7,13 +7,13 @@ from distitribution import Distribution
 
 def chart(distribution: Distribution):
     fig, ax = mpl.subplots()
-    bars = ax.bar(distribution.value, distribution.probably, color='#3452ad', align='center', label='Probability')
+    bars = ax.bar(distribution.values, distribution.probably, color='#3452ad', align='center', label='Probability')
 
     ax.set_ylim(0, 1)
     ticks_y = np.linspace(0, 1, 9)
     ax.set_yticks(ticks_y)
 
-    ticks_x = distribution.value
+    ticks_x = distribution.values
     ax.set_xticks(ticks_x)
 
     ax.grid(which='major', linestyle='--', linewidth=0.5, color='gray')
@@ -31,11 +31,11 @@ def chart(distribution: Distribution):
 
 def main():
     parser = argparse.ArgumentParser('Random distributions')
-    parser.add_argument('value', type=int, nargs='+', help='List of values')
-    parser.add_argument('--numbers', '-n', type=float, nargs='+', help='List of numbers')
+    parser.add_argument('values', type=int, nargs='+', help='List of values')
+    parser.add_argument('--quantities', '-n', type=float, nargs='+', help='List of quantities')
     args = parser.parse_args()
 
-    distribution = Distribution(args.value, args.numbers)
+    distribution = Distribution(args.values, args.quantities)
     chart(distribution)
 
 if __name__ == '__main__':
