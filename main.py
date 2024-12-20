@@ -27,10 +27,10 @@ def chart(distribution: Distribution):
         ax.text(0.5, 1.02, 'Entered as a probability')
 
     mplcursors.cursor(bars, hover=True).connect(
-    "add", lambda sel: sel.annotation.set_text(f"y: {sel.target[1]}")  # Виводимо тільки значення y
+        "add", lambda sel: sel.annotation.set_text(f"y: {sel.target[1]}")
     )
     mplcursors.cursor(line, hover=True).connect(
-        "add", lambda sel: sel.annotation.set_text(f"x: {sel.target[0]}")  # Виводимо тільки значення y
+        "add", lambda sel: sel.annotation.set_text(f"x: {sel.target[0]}")
     )
     mpl.show()
 
